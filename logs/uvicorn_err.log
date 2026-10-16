@@ -1,0 +1,10 @@
+INFO:     Started server process [10948]
+INFO:     Waiting for application startup.
+2026-10-14 20:48:30,462 [INFO] db.mongo_setup: MongoDB collections and indexes initialized successfully.
+INFO:     Application startup complete.
+INFO:     Uvicorn running on http://127.0.0.1:8000 (Press CTRL+C to quit)
+INFO:     Started server process [23984]
+INFO:     Waiting for application startup.
+2026-10-14 20:53:34,156 [INFO] db.mongo_setup: MongoDB collections and indexes initialized successfully.
+INFO:     Application startup complete.
+INFO:     Uvicorn running on http://127.0.0.1:8000 (Press CTRL+C to quit)

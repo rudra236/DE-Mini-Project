@@ -1,0 +1,4 @@
+engine,missing,duplicate,mismatch,wall_time_sec,peak_rss_mb,parent_wall_time_sec
+Pandas,15000,10000,5000,0.6645,350.55,1.1887
+DuckDB,15000,10000,5000,0.2969,170.74,1.001
+Polars,15000,10000,5000,0.3362,424.49,1.1544

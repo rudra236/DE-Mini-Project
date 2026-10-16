@@ -1,0 +1,61 @@
+# Environments & Secrets
+.env
+.env.local
+*.env
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+share/python-wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+# Virtual Environments
+venv/
+.venv/
+env/
+ENV/
+
+# Testing & Coverage
+.pytest_cache/
+.coverage
+htmlcov/
+.tox/
+.nox/
+
+# Data and Artifacts (batches land here)
+data/
+*.duckdb
+*.duckdb.wal
+
+# Big Data / Spark / Lakehouse
+spark-warehouse/
+metastore_db/
+derby.log
+.checkpoint/
+
+# Prefect
+.prefect/
+
+# IDE & OS
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db

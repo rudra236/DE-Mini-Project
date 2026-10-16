@@ -1,0 +1,115 @@
+================================================================================
+BANKFLOW SENTINEL - EXPERIMENT 9: DELTA LAKE ACID & TIME TRAVEL DEMO
+Timestamp: 2026-10-14T15:33:28.069982 UTC
+Table Target: /workspace/lakehouse/tables/reconciliation_results
+================================================================================
+[Cleanup] Removing existing table at /workspace/lakehouse/tables/reconciliation_results for idempotent run...
+[Cleanup] Removing existing table at /workspace/lakehouse/tables/incidents for idempotent run...
+
+[Spark] Initializing SparkSession with Delta Lake 3.2.0...
+[Spark] Spark version: 3.5.0
+
+================================================================================
+SECTION 1: INGESTION & DELTA TABLE CREATION (VERSION 0)
+================================================================================
+[Postgres] Connecting via psycopg2 to postgres:5432 (db: bankflow)...
+[Postgres] Read 4 reconciliation_results rows via pandas.
+[Postgres] Read 21 incidents rows via pandas.
+
+[Delta] Writing reconciliation_results as Delta table (version 0) to:
+  /workspace/lakehouse/tables/reconciliation_results
+
+[Delta v0 Snapshot] reconciliation_results (sample):
++--------+----------+------------+------------+--------------+---------------+
+|batch_id|stage     |source_count|target_count|mismatch_count|duplicate_count|
++--------+----------+------------+------------+--------------+---------------+
+|B001    |payment   |10000       |9850        |50            |50             |
+|B001    |settlement|9850        |9700        |50            |50             |
+|B002    |payment   |100         |98          |1             |1              |
+|B002    |settlement|98          |97          |1             |1              |
++--------+----------+------------+------------+--------------+---------------+
+
+
+================================================================================
+SECTION 2: DELTA IN-PLACE ROW UPDATE (VERSION 1)
+================================================================================
+[DeltaTable] Executing ACID UPDATE: marking batch B002 mismatch_count corrected to 0...
+
+[Delta v1 Snapshot] Verified updated row for batch B002:
++--------+-------+------------+------------+--------------+---------------+
+|batch_id|stage  |source_count|target_count|mismatch_count|duplicate_count|
++--------+-------+------------+------------+--------------+---------------+
+|B002    |payment|100         |98          |0             |1              |
++--------+-------+------------+------------+--------------+---------------+
+
+
+================================================================================
+SECTION 3: DELTA TABLE HISTORY & AUDIT TRAIL (DeltaTable.history)
+================================================================================
++-------+-----------------------+---------+----------------------------------------------------------------------+
+|version|timestamp              |operation|operationParameters                                                   |
++-------+-----------------------+---------+----------------------------------------------------------------------+
+|1      |2026-10-14 15:33:49.988|UPDATE   |{predicate -> ["((batch_id#1592 = B002) AND (stage#1593 = payment))"]}|
+|0      |2026-10-14 15:33:40.905|WRITE    |{mode -> Overwrite, partitionBy -> []}                                |
++-------+-----------------------+---------+----------------------------------------------------------------------+
+
+
+================================================================================
+SECTION 4: TIME TRAVEL QUERY (VERSION 0 vs LATEST VERSION)
+================================================================================
+[Time Travel] Reading snapshot at versionAsOf = 0 (Pre-Update State):
++--------+-------+------------+------------+--------------+
+|batch_id|stage  |source_count|target_count|mismatch_count|
++--------+-------+------------+------------+--------------+
+|B002    |payment|100         |98          |1             |
++--------+-------+------------+------------+--------------+
+
+[Time Travel] Reading snapshot at latest version (Post-Update State):
++--------+-------+------------+------------+--------------+
+|batch_id|stage  |source_count|target_count|mismatch_count|
++--------+-------+------------+------------+--------------+
+|B002    |payment|100         |98          |0             |
++--------+-------+------------+------------+--------------+
+
+[Verification] Time travel confirms: Version 0 mismatch_count = 1 != Latest mismatch_count = 0
+
+================================================================================
+SECTION 5: SCHEMA ENFORCEMENT & REJECTION
+================================================================================
+[Schema Enforcement] Constructing append DataFrame with unexpected extra column 'unauthorized_audit_field'...
+[Schema Enforcement] Attempting append without mergeSchema option...
+REJECTED: [_LEGACY_ERROR_TEMP_DELTA_0007] A schema mismatch detected when writing to the Delta table (Table ID: 96b868a5-e763-4977-8400-2d96b3ca0e2d).
+[SUCCESS] Delta Lake schema enforcement blocked the write.
+
+================================================================================
+SECTION 6: SCHEMA EVOLUTION (mergeSchema = true)
+================================================================================
+[Schema Evolution] Appending compatible row with option('mergeSchema', 'true')...
+[Schema Evolution] Append with mergeSchema=true completed successfully!
+
+[Schema Evolution] Updated Schema:
+root
+ |-- id: long (nullable = true)
+ |-- batch_id: string (nullable = true)
+ |-- stage: string (nullable = true)
+ |-- source_count: long (nullable = true)
+ |-- target_count: long (nullable = true)
+ |-- missing_count: long (nullable = true)
+ |-- duplicate_count: long (nullable = true)
+ |-- mismatch_count: long (nullable = true)
+ |-- delayed_count: long (nullable = true)
+ |-- invalid_count: long (nullable = true)
+ |-- created_at: string (nullable = true)
+ |-- reconciled_by_analyst: string (nullable = true)
+
+
+[Schema Evolution] Showing evolved table (prior rows have NULL, new row has value):
++--------+-------+--------------+---------------------+
+|batch_id|stage  |mismatch_count|reconciled_by_analyst|
++--------+-------+--------------+---------------------+
+|B999    |payment|0             |Analyst_Alice        |
++--------+-------+--------------+---------------------+
+
+================================================================================
+EXPERIMENT 9 DEMO EXECUTION COMPLETE (SUCCESS)
+================================================================================

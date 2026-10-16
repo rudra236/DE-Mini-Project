@@ -1,0 +1,72 @@
+[2026-10-14T15:18:30.434496+00:00] [STARTUP    ] batch_id=SYSTEM   BankFlow Kafka Consumer initialized (group='bankflow-consumers', topic='batch_created', bootstrap='localhost:9092')
+[2026-10-14T15:18:30.516742+00:00] [KAFKA_ERROR] batch_id=SYSTEM   Consumer error encountered: KafkaError{code=UNKNOWN_TOPIC_OR_PART,val=3,str="Subscribed topic not available: batch_created: Broker: Unknown topic or partition"}
+[2026-10-14T15:18:30.516742+00:00] [KAFKA_ERROR] batch_id=SYSTEM   Consumer error encountered: KafkaError{code=UNKNOWN_TOPIC_OR_PART,val=3,str="Subscribed topic not available: batch_created: Broker: Unknown topic or partition"}
+[2026-10-14T15:20:08.678179+00:00] [RECEIVED   ] batch_id=B001     file_path=data/batch_001 row_count=1000 topic=batch_created partition=0 offset=99
+[2026-10-14T15:20:08.725309+00:00] [STATUS     ] batch_id=B001     status=ingested pipeline_run_id=run_stream_B001_9428788f
+[2026-10-14T15:20:10.214820+00:00] [PREFECT    ] batch_id=B001     USE_PREFECT=true detected. Executing batch processing via Prefect flow 'bankflow-pipeline'...
+[2026-10-14T15:20:16.394903+00:00] [PREFECT DONE] batch_id=B001     Flow status=success report=C:\Users\Rudra\Desktop\de mini project\docs\reports\B001.md
+[2026-10-14T15:20:16.403535+00:00] [STATUS     ] batch_id=B001     status=reconciled
+[2026-10-14T15:20:16.427707+00:00] [RECEIVED   ] batch_id=B999     file_path=data/non_existent_batch_dir row_count=500 topic=batch_created partition=0 offset=100
+[2026-10-14T15:20:16.459301+00:00] [STATUS     ] batch_id=B999     status=ingested pipeline_run_id=run_stream_B999_b636c490
+[2026-10-14T15:20:16.459301+00:00] [PREFECT    ] batch_id=B999     USE_PREFECT=true detected. Executing batch processing via Prefect flow 'bankflow-pipeline'...
+[2026-10-14T15:20:22.863557+00:00] [ERROR      ] batch_id=B999     Processing failed: Batch folder not found: data\batch_999
+[2026-10-14T15:20:22.865760+00:00] [TRACEBACK  ] batch_id=B999       File "C:\Users\Rudra\AppData\Roaming\Python\Python310\site-packages\prefect\utilities\callables.py", line 208, in call_with_parameters
+[2026-10-14T15:20:22.866228+00:00] [TRACEBACK  ] batch_id=B999         return fn(*args, **kwargs)
+[2026-10-14T15:20:22.866228+00:00] [TRACEBACK  ] batch_id=B999       File "C:\Users\Rudra\Desktop\de mini project\orchestration\flow.py", line 92, in ingest_task
+[2026-10-14T15:20:22.866702+00:00] [TRACEBACK  ] batch_id=B999         raise FileNotFoundError(err_msg)
+[2026-10-14T15:20:22.866702+00:00] [TRACEBACK  ] batch_id=B999     FileNotFoundError: Batch folder not found: data\batch_999
+[2026-10-14T15:20:22.876694+00:00] [STATUS     ] batch_id=B999     status=failed
+[2026-10-14T15:23:34.261205+00:00] [STARTUP    ] batch_id=SYSTEM   BankFlow Kafka Consumer initialized (group='bankflow-consumers', topic='batch_created', bootstrap='localhost:9092')
+[2026-10-14T15:23:34.466732+00:00] [RECEIVED   ] batch_id=B010     file_path=data/batch_010 row_count=5000 topic=batch_created partition=0 offset=0
+[2026-10-14T15:23:34.508778+00:00] [STATUS     ] batch_id=B010     status=ingested pipeline_run_id=run_stream_B010_a9bd35b3
+[2026-10-14T15:23:36.675001+00:00] [PREFECT    ] batch_id=B010     USE_PREFECT=true detected. Executing batch processing via Prefect flow 'bankflow-pipeline'...
+stream_B010_a9bd35b3
+[2026-10-14T15:23:36.675001+00:00] [PREFECT    ] batch_id=B010     USE_PREFECT=true detected. Executing batch processing via Prefect flow 'bankflow-pipeline'...
+[2026-10-14T15:25:53.731656+00:00] [STARTUP    ] batch_id=SYSTEM   BankFlow Kafka Consumer initialized (group='bankflow-consumers', topic='batch_created', bootstrap='localhost:9092')
+[2026-10-14T15:25:53.954407+00:00] [RECEIVED   ] batch_id=B010     file_path=data/batch_010 row_count=5000 topic=batch_created partition=0 offset=0
+[2026-10-14T15:25:54.002556+00:00] [STATUS     ] batch_id=B010     status=ingested pipeline_run_id=run_stream_B010_87ea18a2
+[2026-10-14T15:25:55.495246+00:00] [PREFECT    ] batch_id=B010     USE_PREFECT=true detected. Executing batch processing via Prefect flow 'bankflow-pipeline'...
+[2026-10-14T15:26:06.344359+00:00] [ERROR      ] batch_id=B010     Processing failed: Batch folder not found: data\batch_010
+[2026-10-14T15:26:06.344888+00:00] [TRACEBACK  ] batch_id=B010       File "C:\Users\Rudra\AppData\Roaming\Python\Python310\site-packages\prefect\utilities\callables.py", line 208, in call_with_parameters
+[2026-10-14T15:26:06.345399+00:00] [TRACEBACK  ] batch_id=B010         return fn(*args, **kwargs)
+[2026-10-14T15:26:06.345399+00:00] [TRACEBACK  ] batch_id=B010       File "C:\Users\Rudra\Desktop\de mini project\orchestration\flow.py", line 92, in ingest_task
+[2026-10-14T15:26:06.345399+00:00] [TRACEBACK  ] batch_id=B010         raise FileNotFoundError(err_msg)
+[2026-10-14T15:26:06.345950+00:00] [TRACEBACK  ] batch_id=B010     FileNotFoundError: Batch folder not found: data\batch_010
+[2026-10-14T15:26:06.354685+00:00] [STATUS     ] batch_id=B010     status=failed
+[2026-10-14T15:26:06.393035+00:00] [COMMITTED_ERR] batch_id=B010     partition=0 offset=0 (committed after failure recorded)
+[2026-10-14T15:26:06.394645+00:00] [RECEIVED   ] batch_id=B001     file_path=data/batch_001 row_count=1000 topic=batch_created partition=0 offset=1
+[2026-10-14T15:26:06.402836+00:00] [STATUS     ] batch_id=B001     status=ingested pipeline_run_id=run_stream_B001_4376584d
+[2026-10-14T15:26:06.403384+00:00] [PREFECT    ] batch_id=B001     USE_PREFECT=true detected. Executing batch processing via Prefect flow 'bankflow-pipeline'...
+[2026-10-14T15:26:09.281721+00:00] [PREFECT DONE] batch_id=B001     Flow status=success report=C:\Users\Rudra\Desktop\de mini project\docs\reports\B001.md
+[2026-10-14T15:26:09.285924+00:00] [STATUS     ] batch_id=B001     status=reconciled
+[2026-10-14T15:26:09.288831+00:00] [COMMITTED  ] batch_id=B001     partition=0 offset=1
+[2026-10-14T15:27:34.827216+00:00] [RECEIVED   ] batch_id=B001     file_path=data/batch_001 row_count=10000 topic=batch_created partition=0 offset=2
+[2026-10-14T15:27:34.840182+00:00] [STATUS     ] batch_id=B001     status=ingested pipeline_run_id=run_stream_B001_749d384c
+[2026-10-14T15:27:34.840182+00:00] [PREFECT    ] batch_id=B001     USE_PREFECT=true detected. Executing batch processing via Prefect flow 'bankflow-pipeline'...
+[2026-10-14T15:27:37.406354+00:00] [PREFECT DONE] batch_id=B001     Flow status=success report=C:\Users\Rudra\Desktop\de mini project\docs\reports\B001.md
+[2026-10-14T15:27:37.410666+00:00] [STATUS     ] batch_id=B001     status=reconciled
+[2026-10-14T15:27:37.413265+00:00] [COMMITTED  ] batch_id=B001     partition=0 offset=2
+[2026-10-14T15:30:04.061353+00:00] [RECEIVED   ] batch_id=B001     file_path=data/batch_001 row_count=10000 topic=batch_created partition=0 offset=3
+[2026-10-14T15:30:04.066661+00:00] [STATUS     ] batch_id=B001     status=ingested pipeline_run_id=run_stream_B001_284c527a
+[2026-10-14T15:30:04.067186+00:00] [PREFECT    ] batch_id=B001     USE_PREFECT=true detected. Executing batch processing via Prefect flow 'bankflow-pipeline'...
+[2026-10-14T15:30:06.632261+00:00] [PREFECT DONE] batch_id=B001     Flow status=success report=C:\Users\Rudra\Desktop\de mini project\docs\reports\B001.md
+[2026-10-14T15:30:06.638952+00:00] [STATUS     ] batch_id=B001     status=reconciled
+[2026-10-14T15:30:06.644415+00:00] [COMMITTED  ] batch_id=B001     partition=0 offset=3
+[2026-10-14T15:45:16.629371+00:00] [RECEIVED   ] batch_id=B011     file_path=data/batch_011/batch_011_source.csv row_count=1000 topic=batch_created partition=0 offset=4
+[2026-10-14T15:45:16.664217+00:00] [STATUS     ] batch_id=B011     status=ingested pipeline_run_id=run_stream_B011_75f16e34
+[2026-10-14T15:45:16.668184+00:00] [PREFECT    ] batch_id=B011     USE_PREFECT=true detected. Executing batch processing via Prefect flow 'bankflow-pipeline'...
+[2026-10-14T15:45:19.133395+00:00] [PREFECT DONE] batch_id=B011     Flow status=success report=C:\Users\Rudra\Desktop\de mini project\docs\reports\B011.md
+[2026-10-14T15:45:19.147856+00:00] [STATUS     ] batch_id=B011     status=reconciled
+[2026-10-14T15:45:19.173661+00:00] [COMMITTED  ] batch_id=B011     partition=0 offset=4
+[2026-10-14T16:13:35.385969+00:00] [RECEIVED   ] batch_id=B012     file_path=data/batch_012/batch_012_source.csv row_count=1000 topic=batch_created partition=0 offset=5
+[2026-10-14T16:13:35.402142+00:00] [STATUS     ] batch_id=B012     status=ingested pipeline_run_id=run_stream_B012_dfb403a4
+[2026-10-14T16:13:35.402841+00:00] [PREFECT    ] batch_id=B012     USE_PREFECT=true detected. Executing batch processing via Prefect flow 'bankflow-pipeline'...
+[2026-10-14T16:13:37.980104+00:00] [PREFECT DONE] batch_id=B012     Flow status=success report=C:\Users\Rudra\Desktop\de mini project\docs\reports\B012.md
+[2026-10-14T16:13:37.987270+00:00] [STATUS     ] batch_id=B012     status=reconciled
+[2026-10-14T16:13:37.992162+00:00] [COMMITTED  ] batch_id=B012     partition=0 offset=5
+[2026-10-14T16:14:54.590699+00:00] [RECEIVED   ] batch_id=B013     file_path=data/batch_013/batch_013_source.csv row_count=10000 topic=batch_created partition=0 offset=6
+[2026-10-14T16:14:54.600967+00:00] [STATUS     ] batch_id=B013     status=ingested pipeline_run_id=run_stream_B013_0f4f0fd0
+[2026-10-14T16:14:54.601472+00:00] [PREFECT    ] batch_id=B013     USE_PREFECT=true detected. Executing batch processing via Prefect flow 'bankflow-pipeline'...
+[2026-10-14T16:16:05.388365+00:00] [PREFECT DONE] batch_id=B013     Flow status=success report=C:\Users\Rudra\Desktop\de mini project\docs\reports\B013.md
+[2026-10-14T16:16:05.401328+00:00] [STATUS     ] batch_id=B013     status=reconciled
+[2026-10-14T16:16:05.404348+00:00] [COMMITTED  ] batch_id=B013     partition=0 offset=6

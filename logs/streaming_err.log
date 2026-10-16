@@ -1,0 +1,8 @@
+C:\Users\Rudra\AppData\Roaming\Python\Python310\site-packages\pydantic_settings\main.py:480: UserWarning: Config key `pyproject_toml_table_header` is set in model_config but will be ignored because no PyprojectTomlConfigSettingsSource source is configured. To use this config key, add a PyprojectTomlConfigSettingsSource source to the settings sources via the settings_customise_sources hook.
+  cls._settings_warn_unused_config_keys(sources, cls.model_config)
+C:\Users\Rudra\AppData\Roaming\Python\Python310\site-packages\pydantic_settings\main.py:480: UserWarning: Config key `toml_file` is set in model_config but will be ignored because no TomlConfigSettingsSource source is configured. To use this config key, add a TomlConfigSettingsSource source to the settings sources via the settings_customise_sources hook.
+  cls._settings_warn_unused_config_keys(sources, cls.model_config)
+C:\Users\Rudra\AppData\Roaming\Python\Python310\site-packages\pydantic\_internal\_generate_schema.py:2249: UnsupportedFieldAttributeWarning: The 'default' attribute with value 'UTC' was provided to the `Field()` function, which has no effect in the context it was used. 'default' is field-specific metadata, and can only be attached to a model field using `Annotated` metadata or by assignment. This may have happened because an `Annotated` type alias using the `type` statement was used, or if the `Field()` function was attached to a single member of a union type.
+  warnings.warn(
+20:53:37.998 | INFO    | prefect - Starting temporary server on http://127.0.0.1:8605
+See https://docs.prefect.io/3.0/manage/self-host#self-host-a-prefect-server for more information on running a dedicated Prefect server.

@@ -1,0 +1,27 @@
+FROM apache/spark:3.5.0-python3
+
+USER root
+
+# Create python symlink
+RUN ln -s /usr/bin/python3 /usr/bin/python || true
+
+# Install delta-spark, postgres driver, and analytical python libraries
+RUN pip install --no-cache-dir --no-deps \
+    delta-spark==3.2.0 \
+    importlib-metadata==8.5.0 \
+    zipp==3.20.2 \
+    pandas==2.0.3 \
+    psycopg2-binary==2.9.10 \
+    sqlalchemy==2.0.28 \
+    typing_extensions==4.11.0 \
+    pytz==2024.1 \
+    numpy==1.24.4 \
+    python-dateutil==2.9.0.post0 \
+    six==1.16.0
+
+ENV PYTHONPATH="/opt/spark/python:/opt/spark/python/lib/py4j-0.10.9.7-src.zip:/workspace"
+
+# Pre-resolve and cache Delta Lake 3.2.0 maven jars to Ivy cache
+RUN python3 -c "from pyspark.sql import SparkSession; from delta import configure_spark_with_delta_pip; b = SparkSession.builder.appName('Warmup').master('local[1]').config('spark.sql.extensions', 'io.delta.sql.DeltaSparkSessionExtension').config('spark.sql.catalog.spark_catalog', 'org.apache.spark.sql.delta.catalog.DeltaCatalog'); s = configure_spark_with_delta_pip(b).getOrCreate(); s.stop()"
+
+WORKDIR /workspace
